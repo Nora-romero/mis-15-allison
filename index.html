@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis 15 Años - Allison Alejandra</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel+Decorative:wght@400;700;900&family=Great+Vibes&family=Monsieur+La+Doulaise&family=Montserrat:wght@300;400;500;600;700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rosaviejo: {
+                            light: '#C78F9E',
+                            DEFAULT: '#B57283',
+                            dark: '#8E4E5E',
+                            deep: '#5A2A36'
+                        },
+                        gold: {
+                            light: '#F3E5AB',
+                            DEFAULT: '#D4AF37',
+                            dark: '#AA7C11',
+                            shimmer: '#F9E29C'
+                        }
+                    },
+                    fontFamily: {
+                        script: ['"Pinyon Script"', 'cursive'],
+                        title: ['"Cinzel Decorative"', 'serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #7A3D4C;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='%23D4AF37' fill-opacity='0.08'%3E%3Cpath d='M30 35l5-12 7 8 8-12 8 12 7-8 5 12h-40zm3 14h34v2H33z'/%3E%3Cpath d='M125 22c2 4 4 6 5 10l-10 0c1-4 3-6 5-10zm-7 12h14l8 22c-7 2-15 3-22 3s-15-1-22-3l8-22z'/%3E%3Cpath d='M40 115c-4-6-10-8-14-4s-2 10 3 13c-5 3-7 9-3 13s10 2 14-4c4 6 10 8 14 4s2-10-3-13c5-3 7-9 3-13s-10-2-14 4z' scale='0.6'/%3E%3Cpath d='M120 110l2 6 6 2-6 2-2 6-2-6-6-2 6-2z'/%3E%3Cpath d='M140 130l1 3 3 1-3 1-1 3-1-3-3-1 3-1z'/%3E%3Cpath d='M25 80l1.5 4.5 4.5 1.5-4.5 1.5-1.5 4.5-1.5-4.5-4.5-1.5 4.5-1.5z'/%3E%3C/g%3E%3C/svg%3E"),
+                radial-gradient(circle at center, #B57283 0%, #7A3D4C 60%, #3B1620 100%);
+            background-repeat: repeat, no-repeat;
+            background-attachment: fixed;
+            color: #FAF5E8;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #FFE8A3 0%, #D4AF37 40%, #F3E5AB 70%, #AA7C11 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .gold-box-shadow {
+            box-shadow: 0 10px 30px -5px rgba(212, 175, 55, 0.25), 0 0 15px rgba(181, 114, 131, 0.5);
+        }
+
+        .gold-glow {
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
+        }
+
+        #sparkleCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* SOBRE INTERACTIVO 3D */
+        .envelope-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #A56172 0%, #6E3342 70%, #3B1620 100%);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+            perspective: 1000px;
+        }
+
+        .envelope-container {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+        }
+
+        @media (min-width: 640px) {
+            .envelope-container { width: 440px; height: 300px; }
+        }
+
+        .envelope-container:hover { transform: scale(1.03); }
+
+        .envelope-back {
+            position: absolute; width: 100%; height: 100%;
+            background: #8E4E5E; border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px rgba(212,175,55,0.3);
+            border: 2px solid #D4AF37;
+        }
+
+        .envelope-paper {
+            position: absolute; left: 5%; top: 5%; width: 90%; height: 90%;
+            background: #FAF5E8; border-radius: 8px; padding: 16px;
+            transition: transform 0.8s ease 0.4s;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; color: #5A2A36; z-index: 2;
+        }
+
+        .envelope-pocket {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #A56172 0%, #8E4E5E 100%);
+            clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
+            border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; z-index: 3;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+
+        .envelope-flap {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, #B57283 0%, #8E4E5E 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 55%);
+            transform-origin: top center; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 4; border-top-left-radius: 12px; border-top-right-radius: 12px;
+        }
+
+        .wax-seal {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%);
+            width: 65px; height: 65px;
+            background: radial-gradient(circle at 30% 30%, #FFE8A3 0%, #D4AF37 50%, #8A6400 100%);
+            border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            display: flex; align-items: center; justify-content: center; z-index: 5;
+            transition: transform 0.5s ease; cursor: pointer; border: 2px dashed #996e00;
+        }
+
+        .envelope-container.open .envelope-flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope-container.open .envelope-paper { transform: translateY(-90px); }
+        .envelope-container.open .wax-seal { opacity: 0; pointer-events: none; }
+        .envelope-overlay.hide { opacity: 0; visibility: hidden; }
+
+        .corner-ornament { position: absolute; width: 35px; height: 35px; border-color: #D4AF37; pointer-events: none; }
+        .corner-tl { top: 12px; left: 12px; border-top: 2px solid; border-left: 2px solid; }
+        .corner-tr { top: 12px; right: 12px; border-top: 2px solid; border-right: 2px solid; }
+        .corner-bl { bottom: 12px; left: 12px; border-bottom: 2px solid; border-left: 2px solid; }
+        .corner-br { bottom: 12px; right: 12px; border-bottom: 2px solid; border-right: 2px solid; }
+
+        /* PANEL EDITABLE LATERAL */
+        .edit-panel {
+            position: fixed; top: 0; right: -360px; width: 360px; height: 100%;
+            background: #3B1620; border-left: 2px solid #D4AF37;
+            z-index: 200; transition: right 0.4s ease; padding: 20px; overflow-y: auto;
+            box-shadow: -10px 0 25px rgba(0,0,0,0.5);
+        }
+        .edit-panel.active { right: 0; }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-gold-light selection:text-rosaviejo-dark min-h-screen relative">
+
+    <canvas id="sparkleCanvas"></canvas>
+
+    <!-- SOBRE INTERACTIVO -->
+    <div id="envelopeOverlay" class="envelope-overlay">
+        <div class="text-center mb-8 px-4">
+            <p class="font-serif italic text-gold-light text-lg md:text-xl mb-1">Has recibido una invitación especial</p>
+            <h2 id="envelopeName" class="font-script text-5xl sm:text-6xl text-gold-shimmer gold-glow">Allison Alejandra</h2>
+            <p class="text-xs uppercase tracking-widest text-pink-200/80 mt-2">Haz clic en el sello para abrir</p>
+        </div>
+
+        <div id="envelopeContainer" class="envelope-container" onclick="openEnvelope()">
+            <div class="envelope-back"></div>
+            <div class="envelope-paper">
+                <p class="font-script text-3xl text-rosaviejo-dark">Mis 15 Años</p>
+                <p id="cardName" class="font-title text-xs tracking-widest text-gold-dark mt-1 uppercase">ALLISON ALEJANDRA</p>
+                <p id="cardDate" class="font-serif text-xs italic text-gray-600 mt-2">19 • Diciembre • 2026</p>
+            </div>
+            <div class="envelope-pocket"></div>
+            <div class="envelope-flap"></div>
+            <div class="wax-seal">
+                <span class="font-title text-xl font-bold text-rosaviejo-deep tracking-tighter">A&A</span>
+            </div>
+        </div>
+
+        <button onclick="openEnvelope()" class="mt-8 px-6 py-2 bg-rosaviejo-deep/80 border border-gold/50 rounded-full text-gold-light font-medium text-xs tracking-widest uppercase hover:bg-gold hover:text-rosaviejo-deep transition-all duration-300">
+            <i class="fas fa-envelope-open mr-2"></i> Abrir Invitación
+        </button>
+    </div>
+
+    <!-- BOTONES DE CONTROL (MÚSICA Y EDICIÓN) -->
+    <div class="fixed top-4 right-4 z-50 flex gap-2">
+        <button id="toggleEditBtn" onclick="toggleEditPanel()" class="bg-gold/90 text-rosaviejo-deep px-4 py-2 rounded-full font-bold text-xs shadow-lg hover:scale-105 transition flex items-center border border-gold-light">
+            <i class="fas fa-edit mr-2"></i> EDITAR DISEÑO
+        </button>
+        <button id="musicToggle" class="bg-rosaviejo-dark/80 border border-gold/50 text-gold p-3 rounded-full shadow-lg hover:scale-110 transition flex items-center justify-center w-10 h-10">
+            <i id="musicIcon" class="fas fa-music"></i>
+        </button>
+    </div>
+
+    <!-- PANEL LATERAL PARA EDITAR EN VIVO -->
+    <div id="editPanel" class="edit-panel text-xs text-pink-100">
+        <div class="flex justify-between items-center mb-4 border-b border-gold/30 pb-2">
+            <h3 class="font-title text-gold text-sm font-bold">PANEL DE EDICIÓN</h3>
+            <button onclick="toggleEditPanel()" class="text-gold text-lg"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div class="space-y-3">
+            <div>
+                <label class="block text-gold-light font-semibold mb-1">Tipo de Letra para Allison:</label>
+                <select id="inputFont" class="w-full bg-rosaviejo-deep border border-gold/40 rounded p-1.5 text-white" onchange="updateDesign()">
+                    <option value='"Pinyon Script", cursive'>Pinyon Script (Elegante & Refinada)</option>
+                    <option value='"Alex Brush", cursive'>Alex Brush (Moderna & Fluida)</option>
+                    <option value='"Monsieur La Doulaise", cursive'>Monsieur La Doulaise (Artística)</option>
+                    <option value='"Great Vibes", cursive'>Great Vibes (Clásica)</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-gold-light font-semibold mb-1">Nombre:</label>
+                <input type="text" id="inputName" value="Allison Alejandra" class="w-full bg-rosaviejo-deep border border-gold/40 rounded p-1.5 text-white" oninput="updateDesign()">
+            </div>
+            <div>
+                <label class="block text-gold-light font-semibold mb-1">Apellidos:</label>
+                <input type="text" id="inputLastName" value="Briceño Romero" class="w-full bg-rosaviejo-deep border border-gold/40 rounded p-1.5 text-white" oninput="updateDesign()">
+            </div>
+            <div>
+                <label class="block text-gold-light font-semibold mb-1">Mensaje Emotivo:</label>
+                <textarea id="inputMessage" rows="3" class="w-full bg-rosaviejo-deep border border-gold/40 rounded p-1.5 text-white" oninput="updateDesign()">"Hay momentos en la vida que son especiales por sí solos, pero compartirlos con las personas que más quieres los convierte en inolvidables."</textarea>
+            </div>
+            <div>
+                <label class="block text-gold-light font-semibold mb-1">Lugar del Evento:</label>
+                <input type="text" id="inputLocation" value="Tennis Club Valera" class="w-full bg-rosaviejo-deep border border-gold/40 rounded p-1.5 text-white" oninput="updateDesign()">
+            </div>
+            <div>
+                <label class="block text-gold-light font-semibold mb-1">Ciudad/Estado:</label>
+                <input type="text" id="inputCity" value="Valera, Estado Trujillo" class="w-full bg-rosaviejo-deep border border-gold/40 rounded p-1.5 text-white" oninput="updateDesign()">
+            </div>
+            <div>
+                <label class="block text-gold-light font-semibold mb-1">Nota de Niños:</label>
+                <input type="text" id="inputKidsNote" value="Los niños dulces sueños" class="w-full bg-rosaviejo-deep border border-gold/40 rounded p-1.5 text-white" oninput="updateDesign()">
+            </div>
+            <div>
+                <label class="block text-gold-light font-semibold mb-1">Teléfono WhatsApp (solo números):</label>
+                <input type="text" id="inputPhone" value="584140000000" class="w-full bg-rosaviejo-deep border border-gold/40 rounded p-1.5 text-white" oninput="updateDesign()">
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="max-w-4xl mx-auto px-4 py-8 md:py-12 relative z-20">
+
+        <!-- ENCABEZADO -->
+        <section class="text-center py-12 md:py-16 relative bg-rosaviejo-deep/40 backdrop-blur-md rounded-3xl border border-gold/40 p-6 md:p-10 gold-box-shadow mb-12">
+            <div class="corner-ornament corner-tl"></div>
+            <div class="corner-ornament corner-tr"></div>
+            <div class="corner-ornament corner-bl"></div>
+            <div class="corner-ornament corner-br"></div>
+
+            <div class="mb-4 text-gold gold-glow">
+                <svg class="w-16 h-16 mx-auto fill-current" viewBox="0 0 24 24">
+                    <path d="M5,16L3,5L8.5,10L12,4L15.5,10L21,5L19,16H5M19,19A1,1 0 0,1 18,20H6A1,1 0 0,1 5,19V18H19V19Z" />
+                </svg>
+            </div>
+
+            <p class="font-serif italic text-gold-light text-lg md:text-xl tracking-wide mb-2">Con la bendición de Dios y el amor de mi familia</p>
+            <p class="text-xs md:text-sm uppercase tracking-widest text-gold/80 mb-6 font-semibold">Tengo el honor de invitarte a celebrar mis</p>
+
+            <h1 class="font-title text-4xl sm:text-6xl md:text-7xl font-bold text-gold-gradient mb-4 gold-glow py-2">15 Años</h1>
+
+            <h2 id="mainName" class="font-script text-5xl sm:text-7xl md:text-8xl text-gold-shimmer my-4 font-normal tracking-wide">Allison Alejandra</h2>
+
+            <p id="mainLastName" class="font-serif text-xl sm:text-2xl text-pink-100 font-light tracking-wider">Briceño Romero</p>
+
+            <div class="flex items-center justify-center my-8 space-x-4">
+                <div class="h-px bg-gradient-to-r from-transparent via-gold to-transparent w-24"></div>
+                <i class="fas fa-gem text-gold text-xs"></i>
+                <div class="h-px bg-gradient-to-r from-transparent via-gold to-transparent w-24"></div>
+            </div>
+
+            <div class="max-w-2xl mx-auto px-4">
+                <p id="mainMessage" class="font-serif italic text-base md:text-lg text-pink-100/90 leading-relaxed">
+                    "Hay momentos en la vida que son especiales por sí solos, pero compartirlos con las personas que más quieres los convierte en inolvidables."
+                </p>
+            </div>
+        </section>
+
+        <!-- CONTADOR REGRESIVO -->
+        <section class="mb-12 text-center">
+            <h3 class="font-title text-xl md:text-2xl text-gold-gradient mb-6 tracking-wider"><i class="far fa-clock mr-2"></i> Faltan Solo:</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                <div class="bg-rosaviejo-dark/60 backdrop-blur-md border border-gold/40 rounded-2xl p-4 shadow-xl text-center">
+                    <span id="days" class="font-title text-3xl md:text-5xl font-bold text-gold-gradient block">00</span>
+                    <span class="text-xs uppercase tracking-widest text-pink-200 mt-1 block">Días</span>
+                </div>
+                <div class="bg-rosaviejo-dark/60 backdrop-blur-md border border-gold/40 rounded-2xl p-4 shadow-xl text-center">
+                    <span id="hours" class="font-title text-3xl md:text-5xl font-bold text-gold-gradient block">00</span>
+                    <span class="text-xs uppercase tracking-widest text-pink-200 mt-1 block">Horas</span>
+                </div>
+                <div class="bg-rosaviejo-dark/60 backdrop-blur-md border border-gold/40 rounded-2xl p-4 shadow-xl text-center">
+                    <span id="minutes" class="font-title text-3xl md:text-5xl font-bold text-gold-gradient block">00</span>
+                    <span class="text-xs uppercase tracking-widest text-pink-200 mt-1 block">Minutos</span>
+                </div>
+                <div class="bg-rosaviejo-dark/60 backdrop-blur-md border border-gold/40 rounded-2xl p-4 shadow-xl text-center">
+                    <span id="seconds" class="font-title text-3xl md:text-5xl font-bold text-gold-gradient block">00</span>
+                    <span class="text-xs uppercase tracking-widest text-pink-200 mt-1 block">Segundos</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- DETALLES DEL EVENTO -->
+        <section class="grid md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-rosaviejo-deep/50 backdrop-blur-md border border-gold/30 rounded-2xl p-6 text-center gold-box-shadow">
+                <div class="w-14 h-14 bg-gradient-to-tr from-gold-dark to-gold-light rounded-full flex items-center justify-center mx-auto mb-4 text-rosaviejo-deep text-2xl shadow-lg">
+                    <i class="far fa-calendar-alt"></i>
+                </div>
+                <h4 class="font-title text-gold text-lg mb-2">FECHA</h4>
+                <p class="font-serif text-xl text-white font-semibold">Sábado</p>
+                <p class="text-gold-light text-2xl font-bold font-serif">19 DE DICIEMBRE</p>
+                <p class="text-pink-200 text-sm mt-1">Año 2026</p>
+            </div>
+
+            <div class="bg-rosaviejo-deep/50 backdrop-blur-md border border-gold/30 rounded-2xl p-6 text-center gold-box-shadow">
+                <div class="w-14 h-14 bg-gradient-to-tr from-gold-dark to-gold-light rounded-full flex items-center justify-center mx-auto mb-4 text-rosaviejo-deep text-2xl shadow-lg">
+                    <i class="far fa-clock"></i>
+                </div>
+                <h4 class="font-title text-gold text-lg mb-2">HORA</h4>
+                <p class="font-serif text-xl text-white font-semibold">Recepción</p>
+                <p class="text-gold-light text-2xl font-bold font-serif">9:00 PM</p>
+                <p class="text-pink-200 text-sm mt-1">Puntualidad de gala</p>
+            </div>
+
+            <div class="bg-rosaviejo-deep/50 backdrop-blur-md border border-gold/30 rounded-2xl p-6 text-center gold-box-shadow">
+                <div class="w-14 h-14 bg-gradient-to-tr from-gold-dark to-gold-light rounded-full flex items-center justify-center mx-auto mb-4 text-rosaviejo-deep text-2xl shadow-lg">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h4 class="font-title text-gold text-lg mb-2">LUGAR</h4>
+                <p id="mainLocation" class="font-serif text-lg text-white font-semibold">Tennis Club Valera</p>
+                <p id="mainCity" class="text-pink-200 text-sm mb-4">Valera, Estado Trujillo</p>
+                <a href="https://maps.google.com/?q=Tennis+Club+Valera" target="_blank" class="inline-flex items-center justify-center px-4 py-2 text-xs font-bold text-rosaviejo-deep bg-gradient-to-r from-gold-light via-gold to-gold-dark rounded-full shadow-md">
+                    <i class="fas fa-directions mr-2"></i> VER UBICACIÓN
+                </a>
+            </div>
+        </section>
+
+        <!-- VESTIMENTA Y NOTAS -->
+        <section class="mb-12 bg-rosaviejo-dark/40 backdrop-blur-md border border-gold/30 rounded-2xl p-8 text-center gold-box-shadow">
+            <div class="max-w-md mx-auto">
+                <div class="text-gold text-3xl mb-3">
+                    <i class="fas fa-user-tie"></i> <span class="mx-2 text-gold/50">|</span> <i class="fas fa-female"></i>
+                </div>
+                <h3 class="font-title text-2xl text-gold-gradient mb-2">Código de Vestimenta</h3>
+                <p class="font-serif text-2xl text-white font-bold my-2">FORMAL / GALA</p>
+                <div class="bg-rosaviejo-deep/60 border border-gold/40 rounded-xl p-3 text-xs text-gold-light font-medium my-3">
+                    <p class="uppercase font-semibold mb-1"><i class="fas fa-exclamation-circle text-gold mr-1"></i> Nota Importante</p>
+                    <p class="text-pink-100/90">No se permite el uso de gorras ni bermudas.</p>
+                </div>
+                <div class="flex items-center justify-center my-3 text-gold-light text-sm italic font-serif">
+                    <span class="h-px bg-gold/30 flex-1"></span>
+                    <span id="mainKidsNote" class="px-3"><i class="fas fa-moon mr-1.5 text-gold"></i> Los niños dulces sueños</span>
+                    <span class="h-px bg-gold/30 flex-1"></span>
+                </div>
+                <p class="text-gold-light text-xs italic mt-2">* Nos reservamos el color rosa viejo y dorado para la quinceañera.</p>
+            </div>
+        </section>
+
+        <!-- CONFIRMACIÓN POR WHATSAPP -->
+        <section class="text-center py-8 bg-rosaviejo-deep/60 backdrop-blur-md border-2 border-gold/60 rounded-3xl p-6 md:p-10 gold-box-shadow">
+            <div class="text-gold mb-4 text-4xl"><i class="fas fa-envelope-open-text"></i></div>
+            <h3 class="font-title text-2xl md:text-3xl text-gold-gradient mb-3">Confirmación de Asistencia</h3>
+            <p class="text-pink-100 text-sm md:text-base max-w-lg mx-auto mb-8 font-light">Tu presencia es muy importante para nosotros. Por favor confírmanos tu asistencia antes del 10 de Diciembre de 2026.</p>
+
+            <a id="whatsappBtn" href="#" target="_blank" class="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-rosaviejo-deep bg-gradient-to-r from-gold-light via-gold to-gold-dark rounded-full shadow-2xl hover:scale-105 transition">
+                <i class="fab fa-whatsapp text-2xl mr-3 text-green-900"></i> CONFIRMAR POR WHATSAPP
+            </a>
+        </section>
+
+    </main>
+
+    <!-- MÚSICA ED SHEERAN - PHOTOGRAPH -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://ia801503.us.archive.org/15/items/EdSheeranPhotograph/Ed%20Sheeran%20-%20Photograph.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        let envelopeOpened = false;
+        const bgMusic = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        let isPlaying = false;
+
+        function openEnvelope() {
+            if (envelopeOpened) return;
+            envelopeOpened = true;
+
+            bgMusic.currentTime = 15; // Inicia a los 15 segundos
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                musicIcon.className = 'fas fa-volume-up';
+            }).catch(e => console.log("Audio play allowed on user interaction"));
+
+            document.getElementById('envelopeContainer').classList.add('open');
+            setTimeout(() => {
+                document.getElementById('envelopeOverlay').classList.add('hide');
+            }, 1200);
+        }
+
+        document.getElementById('musicToggle').addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicIcon.className = 'fas fa-music';
+            } else {
+                if (bgMusic.currentTime < 15) bgMusic.currentTime = 15;
+                bgMusic.play().catch(e => console.log("Audio play error"));
+                musicIcon.className = 'fas fa-volume-up';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        function toggleEditPanel() {
+            document.getElementById('editPanel').classList.toggle('active');
+        }
+
+        function updateDesign() {
+            const font = document.getElementById('inputFont').value;
+            const name = document.getElementById('inputName').value;
+            const lastName = document.getElementById('inputLastName').value;
+            const message = document.getElementById('inputMessage').value;
+            const location = document.getElementById('inputLocation').value;
+            const city = document.getElementById('inputCity').value;
+            const kidsNote = document.getElementById('inputKidsNote').value;
+            const phone = document.getElementById('inputPhone').value;
+
+            document.getElementById('envelopeName').innerText = name;
+            document.getElementById('envelopeName').style.fontFamily = font;
+            document.getElementById('cardName').innerText = name;
+
+            const mainName = document.getElementById('mainName');
+            mainName.innerText = name;
+            mainName.style.fontFamily = font;
+
+            document.getElementById('mainLastName').innerText = lastName;
+            document.getElementById('mainMessage').innerText = message;
+            document.getElementById('mainLocation').innerText = location;
+            document.getElementById('mainCity').innerText = city;
+            document.getElementById('mainKidsNote').innerHTML = `<i class="fas fa-moon mr-1.5 text-gold"></i> ${kidsNote}`;
+
+            const encodedMsg = encodeURIComponent(`¡Hola ${name}! ✨ Confirmo mi asistencia a tus 15 años el próximo 19 de Diciembre en ${location}. 🥂🎉`);
+            document.getElementById('whatsappBtn').href = `https://api.whatsapp.com/send?phone=${phone}&text=${encodedMsg}`;
+        }
+
+        updateDesign();
+
+        // CONTADOR
+        const eventDate = new Date('December 19, 2026 21:00:00').getTime();
+        function updateCountdown() {
+            const difference = eventDate - new Date().getTime();
+            if (difference > 0) {
+                document.getElementById('days').innerText = Math.floor(difference / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById('hours').innerText = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById('minutes').innerText = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById('seconds').innerText = Math.floor((difference % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // CANVAS PARTICULAS
+        const canvas = document.getElementById('sparkleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 0.5;
+                this.speedX = Math.random() * 0.6 - 0.3;
+                this.speedY = -Math.random() * 0.8 - 0.2;
+                this.opacity = Math.random();
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY; this.opacity -= 0.01;
+                if (this.opacity <= 0 || this.y < 0) {
+                    this.x = Math.random() * canvas.width; this.y = canvas.height + 10;
+                    this.opacity = Math.random() * 0.8 + 0.2;
+                }
+            }
+            draw() {
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(249, 226, 156, ${this.opacity})`;
+                ctx.shadowBlur = 8; ctx.shadowColor = '#D4AF37'; ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) particlesArray.push(new Particle());
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particlesArray.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+    </script>
+</body>
+</html>
